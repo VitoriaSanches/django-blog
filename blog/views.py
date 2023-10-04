@@ -17,7 +17,13 @@ from blog.models import Post
 
 from blog.forms import PostModelForm
 
+from django.contrib import messages
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
+@login_required
 def index(request):
     return render(request, "index.html", {"titulo": "Últimos Artigos"})
 
@@ -67,12 +73,18 @@ def get_post(request, post_id):
     return response
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = "post/post_form.html"
     # fields = ("body_text",)
-    success_url = reverse_lazy("posts_list")
+    success_url = reverse_lazy("posts_all")
     form_class = PostModelForm
+    success_message = 'Postagem salva com sucesso.'
+
+    def form_valid(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(PostCreateView, self).form_valid(request, *args, **kwargs)
+
 
 
 @csrf_exempt
