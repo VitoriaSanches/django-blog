@@ -19,6 +19,9 @@
       <p>{{ post.body_text }} <a href="{% url 'post_edit' pk=post.id %}" class="link-secondary">
         Editar
       </a></p>
+      <p><a href="{% url 'post_delete' pk=post.id %}" class="link-secondary">
+        Excluir
+      </a></p>
 
     </article>
     {% endfor %}
