@@ -16,7 +16,10 @@
       {% endif %}
 
       <h2>Em: {{ post.pub_date|date:"d / m / Y" }}</h2>
-      <p>{{ post.body_text }}</p>
+      <p>{{ post.body_text }} <a href="{% url 'post_edit' pk=post.id %}" class="link-secondary">
+        Editar
+      </a></p>
+
     </article>
     {% endfor %}
   </div>
