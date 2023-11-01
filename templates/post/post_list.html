@@ -16,6 +16,12 @@
       {% endif %}
 
       <h2>Em: {{ post.pub_date|date:"d / m / Y" }}</h2>
+
+      {% if post.autor %}
+        <span>Autor: {{post.autor.username}}</span>
+        {% else %} <br>
+        <span>Autor: Desconhecido</span>
+        {%endif %}
       <p>{{ post.body_text }} <a href="{% url 'post_edit' pk=post.id %}" class="link-secondary">
         Editar
       </a></p>
